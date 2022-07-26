@@ -1,0 +1,14 @@
+INDEX VERSION 1.4+D:\jhk_java\java_spr\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+3353894362.index
+2287025009.index
+2469112834.index
+3828128916.index
+3215394166.index
+2487545169.index
+2466339670.index
+2099629358.index
+3812710541.index
+170065336.index
+2018037988.index
+223295905.index
+2487642139.index
