@@ -2,9 +2,10 @@
 <!DOCTYPE mapper
       PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
+<!--다른 파일의 SQL문과 구별하기 위해 네임스페이스를 지정하고 회원정보의 레코드를 위한 resultMap을 지정  -->
 <mapper namespace="mapper.member">
 	<resultMap id="memResult" type="memberVO">
+	<!-- Sql문 실행후 반환되는 레코드들을 typealias태그에서 지정한 memberVO빈에 저장-->
 		<result property="id" column="id" />
         <result property="pwd" column="pwd" />
         <result property="name" column="name" />
@@ -21,13 +22,20 @@
       <result property="joinDate" column="joinDate" />
    </resultMap> -->
 
-
+<!--select 태그의 id는 호출하기 위한 용도. 반환되는 레코드를 id가 memResult인 resultMap에 저장  -->
 	<select id="selectAllMemberList" resultMap="memResult">
       <![CDATA[
          select * from t_member	order by joinDate desc	 	
       ]]>
 	</select>
 
+
+<!-- parameterType  구문에 전달될 파라미터의 패키지 경로를 포함한 전체 클래스명이나 별칭 -->
+<!-- resultType     이 구문에 의해 리턴되는 기대 타입의 패키지 경로를 포함한 전체 클래스명이나 별칭. 
+					collection인경우 collection 타입 자체가 아닌 collection 이 포함된 타입이 될 수 있다.
+					resultType이나resultMap을 사용하라. -->
+<!-- resultMap      외부 resultMap resultMap의 참조명. 결과 맵은 마이바티스의 가장 강력한 기능이다. 
+					resultType이나resultMap을 사용하라. -->
 	<select id="selectName" resultType="String">
     <![CDATA[
 	select name from t_member
@@ -41,7 +49,8 @@
 	    where id = 'hong'
 	 ]]>
 	 </select> 
-	 
+
+<!-- Getter는 형태가 #{} / #{id}는 vo.getId를 xml식으로 표현한 것 -->	 
 	<select id="selectMemberById" resultType="memberVO"  parameterType="String" >
       <![CDATA[
          select * from t_member
@@ -57,13 +66,14 @@
          pwd = #{pwd}			
       ]]>
     </select>
-    
+   <!-- SqlMapConfig.xml에서 alias로 정한 VO 객체 memberVO을 parameterType에 넣어준다 --> 
      <insert id="insertMember"  parameterType="memberVO">
 		<![CDATA[
 		 insert into t_member(id,pwd, name, email)
 		 values(#{id}, #{pwd}, #{name}, #{email})
 		]]>      
 	</insert>
+	
 	
 	<insert id="insertMember2"  parameterType="java.util.Map">
 		<![CDATA[

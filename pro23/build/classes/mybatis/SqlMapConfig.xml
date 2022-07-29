@@ -4,14 +4,22 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+<!-- DAO에서 SQL문으로 값을 전달할 때 또는 SQLa문으로 실행한 후 값을 DAO 로 전달할때 사용할 빈을 생성-->
+   <!-- vo 연결 및 alias지정 -->
    <typeAliases>
       <typeAlias type="com.spring.ex01.MemberVO" alias="memberVO"/>
    </typeAliases>
 
+<!--DB 서버 정보  -->
+<!-- default와 id에 어떤 값이든 넣어도 되는데 같은 값으로 넣어줘야 한다. -->
    <environments default="development">
      <environment id="development">
         <transactionManager type="JDBC"/>
+         	<!-- type=UNPOOLED ==> DriverManager 방식 -->
+ 			<!-- type=POOLED ==> DataSource 방식 -->
+ 			<!-- type=JNDI ==> NamingService... POOLED와 같다 -->
         <dataSource  type="POOLED">
+        	<!-- Setter -->
             <property name="driver"  value="oracle.jdbc.driver.OracleDriver" />
             <property  name="url"    value="JDBC:oracle:thin:@localhost:1521:XE" />
             <property name="username" value="bg" />
@@ -20,6 +28,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
      </environment>
    </environments>
 
+<!-- 회원 기능 관련 SQL문이 있는 member.xml을 읽어 들임. -->
+<!-- SQL Mapping -->
 <mappers>
    <mapper resource="mybatis/mappers/member.xml"/>
 </mappers>
